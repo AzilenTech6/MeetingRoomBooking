@@ -8,21 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoomService = exports.rooms = void 0;
 const common_1 = require("@nestjs/common");
+const department_service_1 = require("../department/department.service");
 exports.rooms = [];
 let RoomService = class RoomService {
     constructor() {
         this.idCounter = 1;
     }
-    addRoom(name, description) {
+    addRoom(name, description, departmentId) {
         const existingRoom = exports.rooms.find((room) => room.name === name);
         if (existingRoom) {
             throw new Error('Room with the same name already exists');
         }
-        const newRoom = { id: this.idCounter++, name, description };
+        const departmentExists = department_service_1.departments.find((dept) => dept.id === departmentId);
+        if (!departmentExists) {
+            throw new Error('Invalid department ID');
+        }
+        const newRoom = { id: this.idCounter++, name, description, departmentId };
         exports.rooms.push(newRoom);
         return newRoom;
     }
-    updateRoom(id, name, description) {
+    updateRoom(id, name, description, departmentId) {
         const room = exports.rooms.find((room) => room.id === id);
         if (!room) {
             throw new common_1.NotFoundException('Room not found');
@@ -31,8 +36,13 @@ let RoomService = class RoomService {
         if (duplicateRoom) {
             throw new Error('Room with the same name already exists');
         }
+        const departmentExists = department_service_1.departments.find((dept) => dept.id === departmentId);
+        if (!departmentExists) {
+            throw new Error('Invalid department ID');
+        }
         room.name = name;
         room.description = description;
+        room.departmentId = departmentId;
         return room;
     }
     deleteRoom(id) {

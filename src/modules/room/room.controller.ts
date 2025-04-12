@@ -6,18 +6,18 @@ export class RoomController {
   constructor(private readonly roomService: RoomService) {}
 
   @Post('add')
-  addRoom(@Body() body: { name: string; description: string }) {
-    const { name, description } = body;
-    return this.roomService.addRoom(name, description);
+  addRoom(@Body() body: { name: string; description: string; departmentId: number }) {
+    const { name, description, departmentId } = body;
+    return this.roomService.addRoom(name, description, departmentId);
   }
 
   @Put('update/:id')
   updateRoom(
     @Param('id') id: number,
-    @Body() body: { name: string; description: string },
+    @Body() body: { name: string; description: string; departmentId: number },
   ) {
-    const { name, description } = body;
-    return this.roomService.updateRoom(+id, name, description);
+    const { name, description, departmentId } = body;
+    return this.roomService.updateRoom(+id, name, description, departmentId);
   }
 
   @Delete('delete/:id')

@@ -20,12 +20,12 @@ let RoomController = class RoomController {
         this.roomService = roomService;
     }
     addRoom(body) {
-        const { name, description } = body;
-        return this.roomService.addRoom(name, description);
+        const { name, description, departmentId } = body;
+        return this.roomService.addRoom(name, description, departmentId);
     }
     updateRoom(id, body) {
-        const { name, description } = body;
-        return this.roomService.updateRoom(+id, name, description);
+        const { name, description, departmentId } = body;
+        return this.roomService.updateRoom(+id, name, description, departmentId);
     }
     deleteRoom(id) {
         this.roomService.deleteRoom(+id);
