@@ -4,6 +4,7 @@
   "description": "A NestJS application",
   "main": "dist/main.js",
   "scripts": {
+    "start:dev": "nest start --watch",
     "start": "nest start",
     "build": "nest build",
     "test": "jest",
