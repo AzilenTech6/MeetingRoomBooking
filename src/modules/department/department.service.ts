@@ -50,4 +50,12 @@ export class DepartmentService {
   getAllDepartments(): Department[] {
     return departments;
   }
+
+  getDepartmentById(id: number): Department {
+    const department = departments.find((dept) => dept.id === id);
+    if (!department) {
+      throw new NotFoundException('Department not found');
+    }
+    return department;
+  }
 }
